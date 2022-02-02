@@ -6,10 +6,31 @@ const NaoEncontrado = require('./erros/NaoEncontrado')
 const CampoInvalido = require('./erros/CampoInvalido')
 const DadosNaoFornecidos = require('./erros/DadosNaoFornecidos')
 const ValorNaoSuportado = require('./erros/ValorNaoSuportado')
+const { formatosAceitos } = require('./Serializador')
 
 app.use(bodyParser.json())
 
+app.use((requisicao , resposta, proximo) => {
+    let formatoRequisitado = requisicao.header('Accept')
+
+    if (formatoRequisitado === '*/*') {
+        formatoRequisitado = 'application/json'
+    }
+
+    if (formatosAceitos.indexOf(formatoRequisitado) === -1) {
+        resposta.status(406)
+        resposta.send('Formato não aceito')
+        resposta.end()
+        return
+    } 
+
+    resposta.setHeader('Content-Type', formatoRequisitado)
+    proximo()
+})
+
 const roteador = require('./rotas/fornecedores')
+const { application } = require('express')
+
 
 
 app.use('/api/fornecedores', roteador)
