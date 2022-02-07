@@ -16,6 +16,9 @@
     "jsontoxml": "^1.0.1",
     "mysql": "^2.18.1",
     "mysql2": "^2.3.3",
-    "sequelize": "^6.14.1"
+    "sequelize": "^6.15.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
   }
 }
