@@ -3,6 +3,11 @@ const TabelaFornecedor = require('./TabelaFornecedor')
 const Fornecedor = require('./Fornecedor')
 const { SerializadorFornecedor } = require('../../Serializador')
 
+roteador.options('/', (requisicao, resposta) => {
+    resposta.set('Access-Control-Allow-Methods', 'GET', 'POST')
+    resposta.status(204)
+    resposta.end()
+})
 
 roteador.get('/', async (requisicao, resposta) => {
     const resultados = await TabelaFornecedor.listar()
