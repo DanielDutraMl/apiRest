@@ -1,6 +1,7 @@
 const { pegarPorId, atualizar } = require("../TabelaFornecedor")
 const Modelo = require("./ModeloTabelaProduto")
 const instancia = require('../../../banco-de-dados')
+const NaoEncontrado = require('../../../erros/NaoEncontrado')
 
 
 module.exports = {
@@ -33,7 +34,7 @@ module.exports = {
         })
 
         if(!encontrado) {
-            throw new Error('Produto não foi encontrado')
+            throw new NaoEncontrado('Produto')
         }
 
         return encontrado
